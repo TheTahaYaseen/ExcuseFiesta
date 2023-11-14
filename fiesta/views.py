@@ -4,3 +4,60 @@ from django.shortcuts import render
 def home_view(request):
     context = {}
     return render(request, "fiesta/home.html", context)
+
+def feed_view(request):
+    context = {}
+    return render(request, "fiesta/feed.html", context)
+    
+def register_view(request):
+    context = {}
+    return render(request, "fiesta/register.html", context)
+    
+def login_view(request):
+    context = {}
+    return render(request, "fiesta/login.html", context)
+    
+def logout_view(request):
+    context = {}
+    return render(request, "fiesta/logout.html", context)
+    
+def user_profile_view(request):
+    context = {}
+    return render(request, "fiesta/user_profile.html", context)
+    
+def update_user_profile_view(request):
+    context = {}
+    return render(request, "fiesta/update_user_profile.html", context)
+    
+def delete_user_profile_view(request):
+    context = {}
+    return render(request, "fiesta/delete_user_profile.html", context)
+    
+def excuses_view(request):
+    context = {}
+    return render(request, "fiesta/excuses.html", context)
+    
+def excuse_view(request):
+    context = {}
+    return render(request, "fiesta/excuse.html", context)
+    
+def excuse_categories_view(request):
+    context = {}
+    return render(request, "fiesta/excuse_categories.html", context)
+    
+def excuse_category_view(request):
+    context = {}
+    return render(request, "fiesta/excuse_category.html", context)
+    
+def create_excuse_view(request):
+    context = {}
+    return render(request, "fiesta/create_excuse.html", context)
+    
+def update_excuse_view(request):
+    context = {}
+    return render(request, "fiesta/update_excuse.html", context)
+    
+def delete_excuse_view(request):
+    context = {}
+    return render(request,
+     "fiesta/delete_excuse.html", context)
