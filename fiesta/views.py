@@ -105,36 +105,32 @@ def create_excuse_view(request):
     
     error = ""
     categories = ExcuseCategory.objects.all()
+    view = "Create"
 
     if request.method == "POST":
         excuse = request.POST.get("excuse")
         excuse_category = request.POST.get("category")
         created_by = request.user
 
+        category, created = ExcuseCategory.objects.get_or_create(
+            name = excuse_category
+        )
+
+
         try:
-            category, created = ExcuseCategory.objects.get_or_create(
-                name = excuse_category
+            excuse = Excuse.objects.create(
+                excuse = excuse,
+                category = category,
+                created_by = created_by
             )
 
         except Exception:
-            error = "Something Went Wrong In Creating Excuse Category!"
-
-        if not error:
-
-            try:
-                excuse = Excuse.objects.create(
-                    excuse = excuse,
-                    category = category,
-                    created_by = created_by
-                )
-
-            except Exception as eerror:
-                error = eerror
+            error = "Something Went Wrong In Creating Excuse!"
 
         if not error:
             return redirect("home")
 
-    context = {"error": error, "categories": categories}
+    context = {"error": error, "categories": categories, "view": view}
     return render(request, "fiesta/excuse_form.html", context)
     
 def update_excuse_view(request, primary_key):
@@ -142,16 +138,17 @@ def update_excuse_view(request, primary_key):
     excuse = Excuse.objects.get(id = primary_key)
     error = ""
     categories = ExcuseCategory.objects.all()
+    view = "Update"
 
     if request.method == "POST":
         excuse.excuse = request.POST.get("excuse")
         excuse_category = request.POST.get("category")
-        category = ExcuseCategory(
+        category = ExcuseCategory.object.get_or_create(
             name = excuse_category
         )
         excuse.category = category
 
-    context = {"error": error, "categories": categories, "excuse": excuse}
+    context = {"error": error, "categories": categories, "excuse": excuse, "view": view}
     return render(request, "fiesta/excuse_form.html", context)
     
 def delete_excuse_view(request):
