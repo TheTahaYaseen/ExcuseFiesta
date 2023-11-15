@@ -23,4 +23,5 @@ urlpatterns = [
     path("update_excuse/<str:primary_key>", views.update_excuse_view, name="update_excuse"),
     path("delete_excuse/<str:primary_key>", views.delete_excuse_view, name="delete_excuse"),
     
+    path("populate/", views.populate_database_with_alot_of_excuses, name="populate"),
 ]
