@@ -33,7 +33,7 @@ def register_view(request):
                 profile_picture = profile_picture
             )
             login(request, user)
-            redirect("home")
+            return redirect("home")
         else:
             error = form.errors.as_text()
             
@@ -45,9 +45,11 @@ def login_view(request):
     return render(request, "fiesta/login.html", context)
     
 def logout_view(request):
-    context = {}
-    return render(request, "fiesta/logout.html", context)
-    
+    if request.user.is_authenticated:
+        logout(request)
+
+    return redirect("home")
+
 def user_profile_view(request):
     context = {}
     return render(request, "fiesta/user_profile.html", context)
