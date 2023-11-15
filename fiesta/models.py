@@ -16,9 +16,15 @@ class ExcuseCategory(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
+    def __repr__(self) -> str:
+        return self.name
+    
 class Excuse(models.Model):
     excuse = models.TextField()
     category = models.ForeignKey(ExcuseCategory, on_delete=models.SET_NULL, null=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def __repr__(self) -> str:
+        return self.excuse
