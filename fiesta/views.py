@@ -112,7 +112,7 @@ def create_excuse_view(request):
         created_by = request.user
 
         try:
-            category = ExcuseCategory.objects.get_or_create(
+            category, created = ExcuseCategory.objects.get_or_create(
                 name = excuse_category
             )
 
@@ -128,8 +128,8 @@ def create_excuse_view(request):
                     created_by = created_by
                 )
 
-            except Exception:
-                error = "Something Went Wrong In Creating Excuse!"
+            except Exception as eerror:
+                error = eerror
 
         if not error:
             return redirect("home")
