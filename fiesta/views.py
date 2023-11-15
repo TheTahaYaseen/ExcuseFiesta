@@ -1,4 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+from fiesta.models import UserProfile
 
 # Create your views here.
 def home_view(request):
@@ -10,7 +15,29 @@ def feed_view(request):
     return render(request, "fiesta/feed.html", context)
     
 def register_view(request):
-    context = {}
+    
+    error = ""
+    form = UserCreationForm()
+
+    if request.method == "POST":
+
+        profile_picture = request.POST.get("profile_picture")
+        form = UserCreationForm(request.POST)
+        
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            UserProfile.objects.create(
+                associated_user = user,
+                profile_picture = profile_picture
+            )
+            login(request, user)
+            redirect("home")
+        else:
+            error = form.errors.as_text()
+            
+    context = {"error": error, "form": form}
     return render(request, "fiesta/register.html", context)
     
 def login_view(request):

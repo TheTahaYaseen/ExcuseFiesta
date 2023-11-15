@@ -1,8 +1,31 @@
 
-
 {% extends "layout.html" %}
 
 {% block content %}
-    
+
+<h4>{{error}}</h4>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {% for field in form %}
+
+        <label>{{field.label}}</label>
+        {{field}}
+        <br>
+        <br>
+
+    {% endfor %}
+
+    <label>Profile Picture</label>
+    <input type="file" name="profile_picture">
+    <br>
+    <br>
+
+    <button type="submit">Register</button>
+
+</form>
+
 {% endblock content %}
                             
