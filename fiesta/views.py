@@ -151,7 +151,14 @@ def update_excuse_view(request, primary_key):
     context = {"error": error, "categories": categories, "excuse": excuse, "view": view}
     return render(request, "fiesta/excuse_form.html", context)
     
-def delete_excuse_view(request):
-    context = {}
-    return render(request,
-     "fiesta/delete_excuse.html", context)
+def delete_excuse_view(request, primary_key):
+    object_type = "Excuse"
+    excuse = Excuse.objects.get(id = primary_key)
+    object_content = excuse.excuse
+
+    if request.method == "POST":
+        excuse.delete()
+        return redirect("home")
+
+    context = {"object_type": object_type, "object_content": object_content}
+    return render(request, "fiesta/delete.html", context)

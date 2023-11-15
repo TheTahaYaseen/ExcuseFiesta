@@ -1,0 +1,16 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <p>Are You Sure You Want To Delete {{object_type}}: {{object_content}}?</p>
+    <button type="submit">Delete</button>
+
+</form>
+
+{% endblock content %}
+                            
