@@ -3,6 +3,15 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    
+
+<h4>{{error}}</h4>
+
+<form method="POST">
+
+    <input type="text" placeholder="Username" name="username">
+    <input type="password" placeholder="Password" name="password">
+
+</form>
+
 {% endblock content %}
                             

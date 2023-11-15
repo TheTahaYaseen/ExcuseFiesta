@@ -41,7 +41,30 @@ def register_view(request):
     return render(request, "fiesta/register.html", context)
     
 def login_view(request):
-    context = {}
+
+    if request.user.is_authenticated:
+        return redirect("home")
+
+    error = ""
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        try:
+            User.objects.get(username = username)
+        except User.DoesNotExist:
+            error = "User Does Not Exist!"
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("home")
+        else:
+            error = "An Error Occured During Login!"
+
+    context = {"error": error}
     return render(request, "fiesta/login.html", context)
     
 def logout_view(request):
