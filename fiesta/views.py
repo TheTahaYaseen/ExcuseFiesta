@@ -91,8 +91,9 @@ def excuses_view(request):
     context = {"excuses": excuses}
     return render(request, "fiesta/excuses.html", context)
     
-def excuse_view(request):
-    context = {}
+def excuse_view(request, primary_key):
+    excuse = Excuse.objects.get(id = primary_key)
+    context = {"excuse": excuse}
     return render(request, "fiesta/excuse.html", context)
     
 def excuse_categories_view(request):

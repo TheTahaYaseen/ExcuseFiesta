@@ -1,8 +1,12 @@
 
-
 {% extends "layout.html" %}
 
 {% block content %}
-    
+
+<small>{{excuse.category.name}}</small>
+<p>{{excuse.excuse}}</p>
+<small>{{excuse.created_by.username}}</small>
+<hr>
+
 {% endblock content %}
                             
