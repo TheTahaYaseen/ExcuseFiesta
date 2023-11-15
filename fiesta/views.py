@@ -1,4 +1,3 @@
-import json
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -97,7 +96,8 @@ def excuse_view(request, primary_key):
     return render(request, "fiesta/excuse.html", context)
     
 def excuse_categories_view(request):
-    context = {}
+    categories = ExcuseCategory.objects.all()
+    context = {"categories": categories}
     return render(request, "fiesta/excuse_categories.html", context)
     
 def excuse_category_view(request):

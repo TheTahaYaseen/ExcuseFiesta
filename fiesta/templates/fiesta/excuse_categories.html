@@ -1,8 +1,12 @@
 
-
 {% extends "layout.html" %}
 
 {% block content %}
-    
+
+<h1>Excuse Categories</h1>
+{% for category in categories %}
+<p>{{category.name}}</p>
+{% endfor %}
+
 {% endblock content %}
                             
