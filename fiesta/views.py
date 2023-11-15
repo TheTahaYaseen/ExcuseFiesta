@@ -100,7 +100,7 @@ def excuse_categories_view(request):
 def excuse_category_view(request):
     context = {}
     return render(request, "fiesta/excuse_category.html", context)
-    
+
 def create_excuse_view(request):
     
     error = ""
@@ -137,8 +137,21 @@ def create_excuse_view(request):
     context = {"error": error, "categories": categories}
     return render(request, "fiesta/excuse_form.html", context)
     
-def update_excuse_view(request):
-    context = {}
+def update_excuse_view(request, primary_key):
+
+    excuse = Excuse.objects.get(id = primary_key)
+    error = ""
+    categories = ExcuseCategory.objects.all()
+
+    if request.method == "POST":
+        excuse.excuse = request.POST.get("excuse")
+        excuse_category = request.POST.get("category")
+        category = ExcuseCategory(
+            name = excuse_category
+        )
+        excuse.category = category
+
+    context = {"error": error, "categories": categories, "excuse": excuse}
     return render(request, "fiesta/excuse_form.html", context)
     
 def delete_excuse_view(request):

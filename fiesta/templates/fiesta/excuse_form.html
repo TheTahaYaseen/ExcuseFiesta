@@ -8,8 +8,8 @@
 
 <form method="POST">
 
-    <input type="text" placeholder="Excuse" name="excuse">
-    <input type="text" placeholder="Excuse Category" name="category" list="excuse_categories_list">
+    <input type="text" placeholder="Excuse" name="excuse" value="{{excuse.excuse}}">
+    <input type="text" placeholder="Excuse Category" name="category" list="excuse_categories_list" value="{{excuse.category}}">
     <datalist id="excuse_categories_list">
         {% for category in categories %}
         <option id="excuse_category_option" value="{{category.name}}">{{category.name}}</option>
