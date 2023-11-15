@@ -163,26 +163,3 @@ def delete_excuse_view(request, primary_key):
 
     context = {"object_type": object_type, "object_content": object_content}
     return render(request, "fiesta/delete.html", context)
-
-def populate_database_with_alot_of_excuses(request):
-    
-    created_by = request.user
-
-    with open("fiesta/excuses.json", "r") as file:
-        excuses_json = json.load(file)
-
-    for excuse_json in excuses_json:
-
-        excuse = excuse_json["excuse"]
-        excuse_category = excuse_json["category"]
-
-        category, created = ExcuseCategory.objects.get_or_create(
-            name = excuse_category
-        )
-        excuse = Excuse.objects.create(
-            excuse = excuse,
-            category = category,
-            created_by = created_by
-        )
-        
-    return redirect("home")
