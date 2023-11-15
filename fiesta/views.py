@@ -143,7 +143,7 @@ def update_excuse_view(request, primary_key):
     if request.method == "POST":
         excuse.excuse = request.POST.get("excuse")
         excuse_category = request.POST.get("category")
-        category = ExcuseCategory.object.get_or_create(
+        category, created = ExcuseCategory.objects.get_or_create(
             name = excuse_category
         )
         excuse.category = category
