@@ -1,0 +1,24 @@
+
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h4>{{error}}</h4>
+
+<form method="POST">
+
+    <input type="text" placeholder="Excuse" name="excuse">
+    <input type="text" placeholder="Excuse Category" name="category" list="excuse_categories_list">
+    <datalist id="excuse_categories_list">
+        {% for category in categories %}
+        <option id="excuse_category_option" value="{{category.name}}">{{category.name}}</option>
+        {% endfor %}
+    </datalist>
+
+    <button type="submit">Create</button>
+
+</form>
+
+{% endblock content %}
+                            

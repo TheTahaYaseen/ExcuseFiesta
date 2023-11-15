@@ -17,7 +17,7 @@ class ExcuseCategory(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
 class Excuse(models.Model):
-    content = models.CharField()
+    excuse = models.TextField()
     category = models.ForeignKey(ExcuseCategory, on_delete=models.SET_NULL, null=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     updated = models.DateTimeField(auto_now=True)

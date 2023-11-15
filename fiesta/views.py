@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from fiesta.models import UserProfile
+from fiesta.models import Excuse, ExcuseCategory, UserProfile
 
 # Create your views here.
 def home_view(request):
@@ -102,12 +102,44 @@ def excuse_category_view(request):
     return render(request, "fiesta/excuse_category.html", context)
     
 def create_excuse_view(request):
-    context = {}
-    return render(request, "fiesta/create_excuse.html", context)
+    
+    error = ""
+    categories = ExcuseCategory.objects.all()
+
+    if request.method == "POST":
+        excuse = request.POST.get("excuse")
+        excuse_category = request.POST.get("category")
+        created_by = request.user
+
+        try:
+            category = ExcuseCategory.objects.get_or_create(
+                name = excuse_category
+            )
+
+        except Exception:
+            error = "Something Went Wrong In Creating Excuse Category!"
+
+        if not error:
+
+            try:
+                excuse = Excuse.objects.create(
+                    excuse = excuse,
+                    category = category,
+                    created_by = created_by
+                )
+
+            except Exception:
+                error = "Something Went Wrong In Creating Excuse!"
+
+        if not error:
+            return redirect("home")
+
+    context = {"error": error, "categories": categories}
+    return render(request, "fiesta/excuse_form.html", context)
     
 def update_excuse_view(request):
     context = {}
-    return render(request, "fiesta/update_excuse.html", context)
+    return render(request, "fiesta/excuse_form.html", context)
     
 def delete_excuse_view(request):
     context = {}
