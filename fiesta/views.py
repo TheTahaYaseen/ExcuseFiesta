@@ -87,7 +87,8 @@ def delete_user_profile_view(request):
     return render(request, "fiesta/delete_user_profile.html", context)
     
 def excuses_view(request):
-    context = {}
+    excuses = Excuse.objects.all()
+    context = {"excuses": excuses}
     return render(request, "fiesta/excuses.html", context)
     
 def excuse_view(request):
