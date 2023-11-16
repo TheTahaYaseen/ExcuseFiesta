@@ -1,8 +1,18 @@
 
-
 {% extends "layout.html" %}
 
 {% block content %}
-    
+
+<h1>{{category.name}}</h1>
+
+{% for excuse in excuses %}
+
+    <small>{{excuse.category.name}}</small>
+    <p>{{excuse.excuse}}</p>
+    <small>{{excuse.created_by.username}}</small>
+    <hr>
+
+{% endfor %}
+
 {% endblock content %}
                             
